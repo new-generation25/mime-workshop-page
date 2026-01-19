@@ -21,7 +21,7 @@ const App = () => {
         details: [
             { icon: <Calendar className="w-5 h-5" />, label: "일정", value: "2월 3일(화)~6일(금)" },
             { icon: <Clock className="w-5 h-5" />, label: "시간", value: "14:00 - 17:00 (3h)" },
-            { icon: <MapPin className="w-5 h-5" />, label: "장소", value: "김해 회현동소극장" },
+            { icon: <MapPin className="w-5 h-5" />, label: "장소", value: "김해 회현동소극장", link: "https://naver.me/5xjR8CBf" },
             { icon: <User className="w-5 h-5" />, label: "강사", value: "현대철 마임이스트" },
         ],
         curriculum: [
@@ -119,10 +119,15 @@ const App = () => {
                         >
                             참가 신청하기
                         </a>
-                        <div className="flex items-center gap-3 text-white/60 text-sm">
+                        <a
+                            href="https://naver.me/5xjR8CBf"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-3 text-white/60 text-sm hover:text-white transition-colors"
+                        >
                             <MapPin className="w-4 h-4" />
                             <span>김해 회현동소극장</span>
-                        </div>
+                        </a>
                     </div>
                 </div>
 
@@ -162,15 +167,27 @@ const App = () => {
             {/* Info Cards Section */}
             <section className="py-24 px-6 max-w-6xl mx-auto">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-px bg-neutral-200 rounded-3xl overflow-hidden border border-neutral-200 shadow-2xl">
-                    {workshopData.details.map((detail, idx) => (
-                        <div key={idx} className="bg-white p-10 flex flex-col items-center text-center group hover:bg-neutral-50 transition-colors">
-                            <div className="mb-6 p-4 bg-neutral-100 rounded-2xl text-neutral-400 group-hover:text-black group-hover:bg-white group-hover:shadow-md transition-all">
-                                {detail.icon}
+                    {workshopData.details.map((detail, idx) => {
+                        const content = (
+                            <>
+                                <div className="mb-6 p-4 bg-neutral-100 rounded-2xl text-neutral-400 group-hover:text-black group-hover:bg-white group-hover:shadow-md transition-all">
+                                    {detail.icon}
+                                </div>
+                                <p className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-2">{detail.label}</p>
+                                <p className="text-lg font-medium text-neutral-800 break-keep leading-tight">{detail.value}</p>
+                            </>
+                        );
+
+                        return detail.link ? (
+                            <a key={idx} href={detail.link} target="_blank" rel="noopener noreferrer" className="bg-white p-10 flex flex-col items-center text-center group hover:bg-neutral-50 transition-colors">
+                                {content}
+                            </a>
+                        ) : (
+                            <div key={idx} className="bg-white p-10 flex flex-col items-center text-center group hover:bg-neutral-50 transition-colors">
+                                {content}
                             </div>
-                            <p className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-2">{detail.label}</p>
-                            <p className="text-lg font-medium text-neutral-800 break-keep leading-tight">{detail.value}</p>
-                        </div>
-                    ))}
+                        );
+                    })}
                 </div>
             </section>
 
@@ -300,8 +317,15 @@ const App = () => {
                 <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-end gap-12">
                     <div>
                         <h3 className="text-sm font-bold text-neutral-400 tracking-widest mb-6 uppercase">Location</h3>
-                        <p className="text-3xl font-light mb-4 text-neutral-900" style={commonSerif}>김해 회현동소극장</p>
-                        <p className="text-neutral-500 font-light">경상남도 김해시 분성로 259 4층</p>
+                        <a
+                            href="https://naver.me/5xjR8CBf"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="group block"
+                        >
+                            <p className="text-3xl font-light mb-4 text-neutral-900 group-hover:text-neutral-600 transition-colors" style={commonSerif}>김해 회현동소극장</p>
+                            <p className="text-neutral-500 font-light">경상남도 김해시 분성로 259 4층</p>
+                        </a>
                         <div className="flex gap-4 mt-8">
                             <div className="p-3 bg-neutral-100 rounded-full text-neutral-400 hover:text-black transition-colors cursor-pointer">
                                 <MessageSquare className="w-5 h-5" />
