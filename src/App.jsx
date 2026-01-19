@@ -1,0 +1,323 @@
+import React, { useState, useEffect } from 'react';
+import { Calendar, MapPin, Clock, User, Sparkles, ChevronDown, ArrowRight, Music, Heart, MessageSquare } from 'lucide-react';
+
+const App = () => {
+    const [activeDay, setActiveDay] = useState(0);
+
+    // 폰트 적용을 위한 스타일 태그 삽입
+    useEffect(() => {
+        const link = document.createElement('link');
+        link.href = 'https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Pretendard:wght@100;300;400;700&display=swap';
+        link.rel = 'stylesheet';
+        document.head.appendChild(link);
+    }, []);
+
+    const workshopData = {
+        title: "말 이전의 연기",
+        subtitle: "마임으로 확장하는 연극인의 표현 역량",
+        lead: "마임이스트 현대철과 함께하는 역량강화 워크숍",
+        description: "본 프로그램은 연극인의 기본 도구인 몸에 집중하여 마임 훈련을 통해 집중력, 공간 인식, 감정의 신체화, 무대 위 존재감과 표현력을 강화하는 전문 워크숍입니다.",
+        googleFormUrl: "https://forms.gle/TiSazBmUEM5Kf3j58",
+        details: [
+            { icon: <Calendar className="w-5 h-5" />, label: "일정", value: "2월 3일(화)~6일(금)" },
+            { icon: <Clock className="w-5 h-5" />, label: "시간", value: "14:00 - 17:00 (3h)" },
+            { icon: <MapPin className="w-5 h-5" />, label: "장소", value: "김해 회현동소극장" },
+            { icon: <User className="w-5 h-5" />, label: "강사", value: "현대철 마임이스트" },
+        ],
+        curriculum: [
+            {
+                day: "01",
+                date: "2월 3일(화)",
+                goal: "몸을 재 정렬하다",
+                subGoal: "연극인의 기본, 신체 감각 회복",
+                schedule: [
+                    { time: "14:00", task: "오리엔테이션: 마임이 연기에 갖는 의미" },
+                    { time: "14:20", task: "신체 워밍업 & 호흡: 중심과 균형" },
+                    { time: "15:20", task: "마임 기초 테크닉: 고정점, 무게, 저항" },
+                    { time: "16:20", task: "개인 실습 및 신체 피드백" },
+                ]
+            },
+            {
+                day: "02",
+                date: "2월 4일(수)",
+                goal: "공간과 상대",
+                subGoal: "무대 위 관계 만들기",
+                schedule: [
+                    { time: "14:00", task: "몸 풀기 & 전날 복기" },
+                    { time: "14:20", task: "공간 인식 훈련: 거리, 방향, 레벨" },
+                    { time: "15:30", task: "관계 마임: 상대 배우와의 호흡" },
+                    { time: "16:30", task: "듀오/소그룹 즉흥 피드백" },
+                ]
+            },
+            {
+                day: "03",
+                date: "2월 5일(목)",
+                goal: "감정과 서사",
+                subGoal: "감정을 몸으로 통과시키다",
+                schedule: [
+                    { time: "14:00", task: "집중 훈련" },
+                    { time: "14:20", task: "감정의 신체화: 상태(State)에서 행동으로" },
+                    { time: "15:30", task: "짧은 서사 마임 창작: 리듬의 변화" },
+                    { time: "16:30", task: "쇼잉 & 디렉팅" },
+                ]
+            },
+            {
+                day: "04",
+                date: "2월 6일(금)",
+                goal: "통합과 현장 적용",
+                subGoal: "연극인을 위한 마임의 확장",
+                schedule: [
+                    { time: "14:00", task: "워밍업" },
+                    { time: "14:20", task: "개인/소그룹 창작 정리" },
+                    { time: "15:40", task: "최종 쇼잉: 관객을 전제한 신체 표현" },
+                    { time: "16:30", task: "종합 피드백 및 마무리" },
+                ]
+            }
+        ]
+    };
+
+    const commonSerif = { fontFamily: "'Nanum Myeongjo', serif" };
+    const commonSans = { fontFamily: "'Pretendard', sans-serif" };
+
+    const handleImageError = (e, fallbackBg = '#1a1a1a') => {
+        e.target.style.display = 'none';
+        if (e.target.parentElement) {
+            e.target.parentElement.style.backgroundColor = fallbackBg;
+        }
+    };
+
+    return (
+        <div className="min-h-screen bg-white text-neutral-900" style={commonSans}>
+            {/* Hero Section */}
+            <header className="relative h-screen flex items-center justify-center overflow-hidden">
+                <div className="absolute inset-0">
+                    <img
+                        src="/hero.png"
+                        alt="Workshop Hero"
+                        className="w-full h-full object-cover grayscale-[30%] brightness-[40%]"
+                        onError={(e) => handleImageError(e, '#1a1a1a')}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black opacity-60"></div>
+                </div>
+
+                <div className="relative z-10 text-center px-4 max-w-5xl">
+                    <p className="text-white/70 tracking-[0.3em] mb-6 text-sm font-light uppercase">
+                        Actor's Masterclass
+                    </p>
+                    <h1 className="text-6xl md:text-8xl font-extrabold text-white mb-6 leading-tight" style={commonSerif}>
+                        {workshopData.title}
+                    </h1>
+                    <p className="text-xl md:text-2xl font-light text-white/80 mb-12 tracking-wide">
+                        {workshopData.subtitle}
+                    </p>
+                    <div className="flex flex-col md:flex-row items-center justify-center gap-8 mt-4">
+                        <a
+                            href={workshopData.googleFormUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="px-10 py-4 bg-white text-black rounded-full text-sm font-bold hover:bg-neutral-200 transition-all transform hover:scale-105 active:scale-95"
+                        >
+                            참가 신청하기
+                        </a>
+                        <div className="flex items-center gap-3 text-white/60 text-sm">
+                            <MapPin className="w-4 h-4" />
+                            <span>김해 회현동소극장</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="absolute bottom-12 left-1/2 -translate-x-1/2 animate-bounce cursor-pointer">
+                    <ChevronDown className="text-white/40 w-10 h-10 font-thin" />
+                </div>
+            </header>
+
+            {/* Philosophy Section */}
+            <section className="py-32 px-6 bg-neutral-50 border-y border-neutral-100">
+                <div className="max-w-4xl mx-auto text-center">
+                    <h2 className="text-sm font-bold text-neutral-400 tracking-widest mb-12 uppercase">Philosophy</h2>
+                    <p className="text-2xl md:text-4xl leading-[1.6] font-light text-neutral-800 break-keep" style={commonSerif}>
+                        대사 이전의 신체 언어를 정교화함으로써 <br />
+                        연기 전반의 <span className="text-neutral-400 italic">밀도</span>를 높이는 과정입니다.
+                    </p>
+                    <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
+                        <div className="p-8 bg-white rounded-3xl border border-neutral-100 shadow-sm">
+                            <Sparkles className="w-6 h-6 mb-4 text-neutral-400" />
+                            <h4 className="font-bold mb-2">공간 인식</h4>
+                            <p className="text-sm text-neutral-500 leading-relaxed">무대 위 보이지 않는 대상을 구체화하고 공간을 사용하는 법을 익힙니다.</p>
+                        </div>
+                        <div className="p-8 bg-white rounded-3xl border border-neutral-100 shadow-sm">
+                            <Music className="w-6 h-6 mb-4 text-neutral-400" />
+                            <h4 className="font-bold mb-2">리듬과 호흡</h4>
+                            <p className="text-sm text-neutral-500 leading-relaxed">이완과 긴장을 통해 무대 위 '준비된 몸'을 만들고 서사의 리듬을 찾습니다.</p>
+                        </div>
+                        <div className="p-8 bg-white rounded-3xl border border-neutral-100 shadow-sm">
+                            <Heart className="w-6 h-6 mb-4 text-neutral-400" />
+                            <h4 className="font-bold mb-2">감정의 신체화</h4>
+                            <p className="text-sm text-neutral-500 leading-relaxed">설명하지 않는 연기, 상태에서 행동으로 이어지는 본질적인 표현을 탐구합니다.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Info Cards Section */}
+            <section className="py-24 px-6 max-w-6xl mx-auto">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-px bg-neutral-200 rounded-3xl overflow-hidden border border-neutral-200 shadow-2xl">
+                    {workshopData.details.map((detail, idx) => (
+                        <div key={idx} className="bg-white p-10 flex flex-col items-center text-center group hover:bg-neutral-50 transition-colors">
+                            <div className="mb-6 p-4 bg-neutral-100 rounded-2xl text-neutral-400 group-hover:text-black group-hover:bg-white group-hover:shadow-md transition-all">
+                                {detail.icon}
+                            </div>
+                            <p className="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-2">{detail.label}</p>
+                            <p className="text-lg font-medium text-neutral-800 break-keep leading-tight">{detail.value}</p>
+                        </div>
+                    ))}
+                </div>
+            </section>
+
+            {/* Curriculum & Instructor Section */}
+            <section className="py-24 px-6 bg-white overflow-hidden">
+                <div className="max-w-6xl mx-auto">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-start">
+                        {/* Instructor Column (Left) */}
+                        <div className="flex flex-col items-center">
+                            <div className="relative w-full max-w-md">
+                                <div className="absolute -top-4 -left-4 w-24 h-24 border-t-2 border-l-2 border-neutral-300"></div>
+                                <div className="absolute -bottom-4 -right-4 w-24 h-24 border-b-2 border-r-2 border-neutral-300"></div>
+                                <div className="rounded-2xl overflow-hidden shadow-2xl bg-neutral-100 aspect-[4/5]">
+                                    <img
+                                        src="/hyun.jpg"
+                                        alt="Artist Practice"
+                                        className="w-full h-full object-cover"
+                                        onError={(e) => handleImageError(e, '#f5f5f5')}
+                                    />
+                                </div>
+                                <div className="absolute top-1/2 -right-10 bg-black text-white p-8 rounded-2xl hidden lg:block transform rotate-3 shadow-2xl">
+                                    <p className="text-xs uppercase tracking-widest mb-2 font-bold opacity-50">Lead Artist</p>
+                                    <p className="text-2xl font-light" style={commonSerif}>현대철</p>
+                                    <p className="text-xs mt-2 text-neutral-400 font-light italic">마임이스트</p>
+                                </div>
+                            </div>
+
+                            {/* Profile Details List - Centered block with left-aligned text */}
+                            <div className="mt-12 space-y-2 w-fit mx-auto">
+                                {[
+                                    "극단 마음같이 대표",
+                                    "서울연극협회 이사",
+                                    "강북연극협회 이사",
+                                    "한국연출가협회 회원",
+                                    "한국마임협의회 회원"
+                                ].map((text, i) => (
+                                    <div key={i} className="flex items-center gap-4 text-neutral-600 font-light">
+                                        <div className="w-1.5 h-1.5 rounded-full bg-neutral-300 flex-shrink-0"></div>
+                                        <p className="text-sm tracking-wide whitespace-nowrap">{text}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Curriculum Column (Right) */}
+                        <div className="pt-4 lg:pt-0">
+                            <h2 className="text-4xl font-light mb-12 text-neutral-900 leading-tight" style={commonSerif}>
+                                연기 전반의 <span className="italic">밀도</span>를 높이는 <br />
+                                4일간의 여정
+                            </h2>
+                            <div className="space-y-4">
+                                {workshopData.curriculum.map((item, idx) => (
+                                    <div
+                                        key={idx}
+                                        onClick={() => setActiveDay(idx)}
+                                        className={`cursor-pointer p-6 rounded-2xl transition-all duration-300 border ${activeDay === idx
+                                            ? 'bg-neutral-900 text-white shadow-xl scale-[1.02] border-neutral-900'
+                                            : 'bg-white text-neutral-500 hover:bg-neutral-50 border-neutral-100 shadow-sm'
+                                            }`}
+                                    >
+                                        <div className="flex items-center justify-between mb-2">
+                                            <span className={`text-[10px] font-bold tracking-widest ${activeDay === idx ? 'text-white/40' : 'text-neutral-300'}`}>
+                                                DAY {item.day}
+                                            </span>
+                                            <span className="text-[10px] opacity-70">{item.date}</span>
+                                        </div>
+                                        <h3 className={`text-xl font-light ${activeDay === idx ? 'text-white' : 'text-neutral-800'}`}>
+                                            {item.goal}
+                                        </h3>
+                                        {activeDay === idx && (
+                                            <div className="mt-6 pt-6 border-t border-white/10 space-y-4 animate-in fade-in slide-in-from-top-2">
+                                                {item.schedule.map((s, sIdx) => (
+                                                    <div key={sIdx} className="flex gap-4 items-start">
+                                                        <span className="text-[10px] font-mono text-white/30 pt-1">{s.time}</span>
+                                                        <span className="text-sm font-light text-white/80 leading-relaxed">{s.task}</span>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        )}
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Call to Action Section */}
+            <section className="py-32 px-6 bg-neutral-900 text-white relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-white/5 rounded-full translate-x-1/2 -translate-y-1/2 blur-[120px]"></div>
+                <div className="max-w-4xl mx-auto text-center relative z-10">
+                    <h2 className="text-4xl md:text-6xl font-extrabold mb-8 leading-tight" style={commonSerif}>
+                        당신의 신체는 어떤 <br />말을 하고 있나요?
+                    </h2>
+                    <p className="text-xl text-neutral-400 font-light mb-12 max-w-2xl mx-auto break-keep">
+                        무대 위에서 가장 정직한 도구인 몸을 다시 발견하는 시간을 가져보세요.
+                    </p>
+                    <a
+                        href={workshopData.googleFormUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group inline-flex items-center gap-3 px-12 py-5 bg-white text-black rounded-full text-lg font-bold hover:bg-neutral-200 transition-all shadow-2xl active:scale-95"
+                    >
+                        지금 신청하기
+                        <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                    </a>
+
+                    <div className="mt-20 flex flex-wrap justify-center gap-12 text-neutral-500">
+                        <div className="flex flex-col items-center">
+                            <span className="text-2xl text-white font-light">15</span>
+                            <span className="text-[10px] uppercase tracking-widest mt-1">정원(명)</span>
+                        </div>
+                        <div className="flex flex-col items-center">
+                            <span className="text-2xl text-white font-light">4</span>
+                            <span className="text-[10px] uppercase tracking-widest mt-1">훈련 일수</span>
+                        </div>
+                        <div className="flex flex-col items-center">
+                            <span className="text-2xl text-white font-light">12</span>
+                            <span className="text-[10px] uppercase tracking-widest mt-1">총 시간</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Location Footer Section */}
+            <section className="py-24 px-6 bg-white border-t border-neutral-100">
+                <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-end gap-12">
+                    <div>
+                        <h3 className="text-sm font-bold text-neutral-400 tracking-widest mb-6 uppercase">Location</h3>
+                        <p className="text-3xl font-light mb-4 text-neutral-900" style={commonSerif}>김해 회현동소극장</p>
+                        <p className="text-neutral-500 font-light">경상남도 김해시 분성로 259 4층</p>
+                        <div className="flex gap-4 mt-8">
+                            <div className="p-3 bg-neutral-100 rounded-full text-neutral-400 hover:text-black transition-colors cursor-pointer">
+                                <MessageSquare className="w-5 h-5" />
+                            </div>
+                            <div className="p-3 bg-neutral-100 rounded-full text-neutral-400 hover:text-black transition-colors cursor-pointer">
+                                <MapPin className="w-5 h-5" />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="text-right text-neutral-300 text-[10px] font-bold tracking-[0.3em] uppercase">
+                        &copy; 2025 Mime artist Hyeon Dae-cheol x Hoehyeon-dong Small Theater
+                    </div>
+                </div>
+            </section>
+        </div>
+    );
+};
+
+export default App;
