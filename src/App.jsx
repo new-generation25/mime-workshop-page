@@ -330,9 +330,14 @@ const App = () => {
                             <div className="p-3 bg-neutral-100 rounded-full text-neutral-400 hover:text-black transition-colors cursor-pointer">
                                 <MessageSquare className="w-5 h-5" />
                             </div>
-                            <div className="p-3 bg-neutral-100 rounded-full text-neutral-400 hover:text-black transition-colors cursor-pointer">
+                            <a
+                                href="https://naver.me/5xjR8CBf"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="p-3 bg-neutral-100 rounded-full text-neutral-400 hover:text-black transition-colors cursor-pointer"
+                            >
                                 <MapPin className="w-5 h-5" />
-                            </div>
+                            </a>
                         </div>
                     </div>
                     <div className="text-right text-neutral-300 text-[10px] font-bold tracking-[0.3em] uppercase">
